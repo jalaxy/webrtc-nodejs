@@ -1,10 +1,9 @@
 'use strict'
 
-var mediaRecorder_camera;//media录制摄像头
-var mediaRecorder_screen;//media录制屏幕
+var mediaRecorder_camera; // media录制摄像头
+var mediaRecorder_screen; // media录制屏幕
 
-
-//let mediaRecorder;
+let mediaRecorder;
 let recordedBlobs_camera; // 录制下来的内容
 let recordedBlobs_screen; // 录制下来的内容
 let isRecording = false;
@@ -27,8 +26,6 @@ var stream_camera;
 var stream_screen;
 var socketCamera;
 var socketScreen;
-
-var showMsg = alert;
 
 function getSupportedMimeTypes() {
     const possibleTypes = [
@@ -120,13 +117,13 @@ stopCameraBtn.addEventListener('click', () => {
 function startRecording() {
     recordedBlobs_camera = [];
     recordedBlobs_screen = [];
-    const mimeType = 'video/webm;codecs=h264,opus';
+    const mimeType = 'video/webm;codecs=vp9,opus';
     const options = { mimeType };
 
     try {
         mediaRecorder_camera = new MediaRecorder(stream_camera, options);
         mediaRecorder_screen = new MediaRecorder(stream_screen, options);
-        socketCamera = new WebSocket(url + "/camera/" + user);//与服务器的连接
+        socketCamera = new WebSocket(url + "/camera/" + user); // 与服务器的连接
         socketScreen = new WebSocket(url + "/screen/" + user);
         setTimeout(() => {
             socketScreen.send('screen test');
