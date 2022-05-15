@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div
+    button#startCamera 开启摄像头
+    button#stopCamera 停止摄像头
+    button#record(disabled) 录制
+    button#play(disabled) 播放
+    button#download(disabled) 下载视频
+  video#v1(playsinline autoplay muted)
+  video#v2(playsinline loop)
+  br
+  video#v3(playsinline autoplay muted)
+  video#v4(playsinline loop)
+  p 录制使用的视频格式: 
+    span
+      select#codecSelect(disabled)
+  div
+    h4 视频设置
+    p 回声消除: 
+      input(type="checkbox" id="echoCancellation")
+  div
+    span#msg(style="font-size:smaller")
+  script(src="javascripts/main.js")
+

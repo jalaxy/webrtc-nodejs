@@ -1,0 +1,19 @@
+body {
+  padding: 20px 50px;
+  font: 14px sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+button {
+  padding: 5px;
+  margin: 10px;
+}
+
+video {
+  height: 200px;
+  border: solid black;
+  margin: 10px;
+}
