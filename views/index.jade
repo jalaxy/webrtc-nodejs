@@ -1,27 +1,42 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-  div
-    button#startCamera 开启摄像头
-    button#stopCamera 停止摄像头
-    button#record(disabled) 录制
-    button#play(disabled) 播放
-    button#download(disabled) 下载视频
-  video#v1(playsinline autoplay muted)
-  video#v2(playsinline loop)
-  br
-  video#v3(playsinline autoplay muted)
-  video#v4(playsinline loop)
-  p 录制使用的视频格式: 
-    span
-      select#codecSelect(disabled)
-  div
-    h4 视频设置
-    p 回声消除: 
-      input(type="checkbox" id="echoCancellation")
-  div
-    span#msg(style="font-size:smaller")
-  script(src="javascripts/main.js")
-
+doctype html
+html
+  head
+    title 立即加入
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    div(align="center")
+      div#index-form(style="width: 500px")
+        div(style="margin: 30px")
+          h1 欢迎！立即加入。
+          h1 Welcome! Join now.
+        hr(style="width: 400px")
+        form(action="", method="post", style="margin: 20px")
+          table
+            tr(height=50)
+              td
+                label(for="roomid") 会议号
+              td(style="text-align: right")
+                label(for="roomid") ID
+              td(width=220, style="text-align: right")
+                input#roomid(name="roomid" type="text")
+            tr(height=50)
+              td
+                label(for="password") 密码
+              td(style="text-align: right")
+                label(for="roomid") Password
+              td(style="text-align: right")
+                input#password(name="password" type="password")
+            tr(height=50)
+              td
+                label(for="username") 入会名
+              td(style="text-align: right")
+                label(for="roomid") Username
+              td(style="text-align: right")
+                input#username(name="username")
+            tr
+              td(colspan=3, style="text-align: center")
+                button 进入 Enter
+    hr(style="margin-top: 50px")
+    div(align="center")
+      h1 使用说明 How to use
+    script(src="/javascripts/index.js")

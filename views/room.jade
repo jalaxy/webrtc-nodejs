@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title 会议室
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(style="padding: 0 0")
+    center
+      h1 会议室
+    div(align="center")
+      div#main-video-container
+        video#main-video(playsinline, autoplay, muted, height="100%", width="100%")
+    div(style="margin-left: 5%")
+      div#sub-video-container
+        video#sub-video(playsinline, autoplay, muted, height="100%", width="100%")
+    div
+      button#startCamera 开启摄像头
+      button#stopCamera 停止摄像头
+      button#record(disabled) 录制
+    script(src="/javascripts/room.js")
