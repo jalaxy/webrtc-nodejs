@@ -9,7 +9,7 @@ var server = require('https').createServer({
 var wss = new ws.Server({ 'server': server });
 
 wss.on('connection', (ws, req) => {
-    console.log('connected');
+    console.log(`${req.method} ${req.url} connected.`);
     fs.createWriteStream('stream/' + req.url.split('/').join('.') + '.webm')
     ws.on('message', message => {
         fs.createWriteStream(
@@ -17,7 +17,7 @@ wss.on('connection', (ws, req) => {
             .write(message);
     });
     ws.on('close', (code, reason) => {
-        console.log('connection close with code ' + code);
+        console.log(`${req.method} ${req.url} disconnected.`);
     });
 });
 

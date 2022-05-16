@@ -1,70 +1,85 @@
 body {
-  padding: 20px 50px;
-  font: 14px sans-serif;
+    padding: 20px 50px;
+    font: 14px sans-serif;
 }
 
 td {
-  padding: 5px;
-  font-size: 16px;
-  white-space: nowrap;
+    padding: 5px;
+    font-size: 16px;
+    white-space: nowrap;
 }
 
 input {
-  height: 16px;
-  width: 200px;
-  padding: 6px;
-  border: solid lightgray;
-  border-radius: 5px;
-  background-color: aliceblue;
+    height: 16px;
+    width: 200px;
+    padding: 6px;
+    border: solid lightgray;
+    border-radius: 5px;
+    background-color: aliceblue;
 }
 
 input:hover {
-  border-color: gray;
+    border-color: gray;
 }
 
-input:focus {
-  outline: none;
-  border: solid cornflowerblue 2px;
+input.invalid-input {
+    border: solid #ff8080;
+}
+
+input.invalid-input:hover {
+    border: solid red;
+}
+
+input:focus,
+input.invalid-input:focus {
+    outline: none;
+    border: solid cornflowerblue 2px;
 }
 
 button {
-  padding: 8px 12px;
-  background-color: #4078a5;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  font-size: 16px;
+    padding: 8px 12px;
+    background-color: #4078a5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    font-size: 16px;
 }
 
 button:hover {
-  background-color: #5a91bf;
-  cursor: pointer;
+    background-color: #5a91bf;
+    cursor: pointer;
 }
 
 hr {
-  height: 1.5px;
-  background-color: steelblue;
-  border: none;
+    height: 1.5px;
+    background-color: steelblue;
+    border: none;
 }
 
 #index-form {
-  border: dashed steelblue 2px;
-  border-radius: 10px;
-  background-color: aliceblue;
+    border: dashed steelblue 2px;
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+
+#msgC,
+#msgE {
+    font-size: small;
+    color: red;
 }
 
 #main-video-container {
-  width: 90%;
-  height: 56.25%;
-  border: solid black;
-  margin: 10px;
+    width: 90%;
+    height: 56.25%;
+    border: solid black;
+    margin: 10px;
 }
 
 #sub-video-container {
-  width: 30%;
-  height: 56.25%;
-  border: solid black;
-  margin: 10px;
-  float: left;
+    width: 30%;
+    height: 56.25%;
+    border: solid black;
+    margin: 10px;
+    float: left;
 }

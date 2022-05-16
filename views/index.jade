@@ -10,7 +10,7 @@ html
           h1 欢迎！立即加入。
           h1 Welcome! Join now.
         hr(style="width: 400px")
-        form(action="", method="post", style="margin: 20px")
+        form(action="javascript:", method="post", style="margin: 20px")
           table
             tr(height=50)
               td
@@ -18,14 +18,14 @@ html
               td(style="text-align: right")
                 label(for="roomid") ID
               td(width=220, style="text-align: right")
-                input#roomid(name="roomid" type="text")
+                input#roomid(name="roomid", type="text")
             tr(height=50)
               td
                 label(for="password") 密码
               td(style="text-align: right")
                 label(for="roomid") Password
               td(style="text-align: right")
-                input#password(name="password" type="password")
+                input#passwd(name='passwd', type="password")
             tr(height=50)
               td
                 label(for="username") 入会名
@@ -33,10 +33,17 @@ html
                 label(for="roomid") Username
               td(style="text-align: right")
                 input#username(name="username")
+            tr(style="padding: 0; margin: 0")
+              td(colspan=3, style="padding: 0; margin: 0")
+                table(style="width: 100%; padding: 0; margin: 0")
+                  tr(style="padding: 0; margin: 0")
+                    td#msgC(style="text-align: left; padding: 0; margin: 0")
+                    td#msgE(style="text-align: right")
             tr
               td(colspan=3, style="text-align: center")
                 button 进入 Enter
     hr(style="margin-top: 50px")
     div(align="center")
       h1 使用说明 How to use
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js") 
     script(src="/javascripts/index.js")
