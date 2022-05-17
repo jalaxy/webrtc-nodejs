@@ -38,16 +38,21 @@ input.invalid-input:focus {
 
 button {
     padding: 8px 12px;
-    background-color: #4078a5;
-    color: white;
-    border: none;
+    background-color: inherit;
+    border: solid steelblue 1.5px;
     border-radius: 5px;
     margin: 10px;
     font-size: 16px;
 }
 
+button:focus {
+    outline: none;
+    border-width: 2.5px;
+    padding: 7px 11px;
+}
+
 button:hover {
-    background-color: #5a91bf;
+    background-color: #b5cee3;
     cursor: pointer;
 }
 

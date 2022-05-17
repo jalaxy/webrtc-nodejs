@@ -3,18 +3,40 @@ create database `meetings_db`;
 use `meetings_db`;
 
 create table `room` (
-    `room_id` char(16),
-    `passwd` varchar(64) ,
+    `room_id` char(16) not null,
+    `passwd` varchar(64) not null,
     primary key (`room_id`)
 );
 
-create table `last_room_id` (
-    `room_id` char(16),
+create table `last` (
+    `room_id` char(16) not null,
     primary key (`room_id`),
-    constraint fk_last_room_id_room
+    constraint fk_last_room
         foreign key (`room_id`) references `room`(`room_id`)
-    on delete cascade
-    on update cascade
+        on delete cascade on update cascade
+);
+
+create table sessions (
+    `session_id` varchar(128) not null,
+    `expires` int(11) not null,
+    `data` mediumtext,
+    primary key (`session_id`)
+);
+
+create table `login` (
+    `room_id` char(16) not null,
+    `session_id` varchar(128) not null,
+    `user_name` varchar(64),
+    `start` datetime default current_timestamp,
+    `end` datetime,
+    `status` varchar(16) default 'online',
+    primary key (`room_id`, `session_id`),
+    constraint fk_login_room
+        foreign key (`room_id`) references `room`(`room_id`)
+        on delete cascade on update cascade,
+    constraint fk_login_session
+        foreign key (`session_id`) references `sessions`(`session_id`)
+        on delete cascade on update cascade
 );
 
 delimiter -;
@@ -35,11 +57,14 @@ create trigger `after_room_id_insert`
     after insert on `room`
     for each row
 begin
-    if (select count(*) from `last_room_id`) != 1 then
-        delete from `last_room_id`;
-        insert into `last_room_id` values(new.`room_id`);
+    if (select count(*) from `last`) != 1 then
+        delete from `last`;
+        insert into `last` values(new.`room_id`);
     else
-        update `last_room_id` set `room_id` = new.`room_id`;
+        update `last` set `room_id` = new.`room_id`;
     end if;
 end-;
 delimiter ;
+
+insert into `room`(`passwd`) values('a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
+update `room` set `room_id` = 'test';

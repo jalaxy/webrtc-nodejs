@@ -2,13 +2,33 @@ module.exports = (db_pool) => {
     var createError = require('http-errors');
     var express = require('express');
     var path = require('path');
+    var session = require('express-session');
+    var mysqlStore = require('express-mysql-session')(session);
     var cookieParser = require('cookie-parser');
     var logger = require('morgan');
 
+    var app = express();
+    var sessionStore = new mysqlStore({
+        createDatabaseTable: false,
+        schema: {
+            tableName: 'sessions',
+            columnNames: {
+                session_id: 'session_id',
+                expires: 'expires',
+            }
+        }
+    }, db_pool);
+
+    app.use(session({
+        secret: "meeting-project-of-comnet-using-webrtc",
+        saveUninitialized: true,
+        cookie: { maxAge: 1000 * 3600 },
+        resave: false,
+        store: sessionStore
+    }));
+
     var indexRouter = require('./routes/index')(db_pool);
     var usersRouter = require('./routes/users');
-
-    var app = express();
 
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
