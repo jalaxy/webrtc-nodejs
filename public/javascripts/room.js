@@ -8,9 +8,7 @@ let recordedBlobsScreen; // 录制下来的内容
 let isRecording = false;
 
 // 先把页面元素拿到
-const startCameraBtn = document.querySelector('button#startCamera'); // 启动摄像头按钮
-const stopCameraBtn = document.querySelector('button#stopCamera');
-const recordBtn = document.querySelector('button#record'); // 开始录制按钮
+const cameraBtn = document.querySelector('button#camera-button'); // 启动摄像头按钮
 
 const previewV1 = document.querySelector('video#main-video'); // 预览用的
 const previewV2 = document.querySelector('video#sub-video'); // 预览用的
@@ -36,21 +34,38 @@ var url = "wss://106.12.116.24:3001"
 var user = "ww"
 
 // 启动摄像头
-startCameraBtn.addEventListener('click', async () => {
-    startCameraBtn.disabled = true; // 按钮失效
-    // const isEchoCancellation = document.querySelector('#echoCancellation').checked;
-    const constraints = {
-        audio: {
-            //echoCancellation: { exact: isEchoCancellation }
-            audio: true
-        },
-        video: {
-            width: 1280,
-            height: 720,
-            frameRate: 30
+cameraBtn.addEventListener('click', async () => {
+    if (cameraBtn.getAttribute('state') == 'off') {
+        // const isEchoCancellation = document.querySelector('#echoCancellation').checked;
+        const constraints = {
+            audio: {
+                // echoCancellation: { exact: false },
+                audio: true
+            },
+            video: {
+                width: 1280,
+                height: 720,
+                frameRate: 30
+            }
+        };
+        await init(constraints);
+        cameraBtn.setAttribute('state', 'on');
+        cameraBtn.innerHTML = '关闭摄像头';
+    } else {
+        var stream = previewV1.srcObject;
+        if (stream == null) {
+            return;
         }
-    };
-    await init(constraints);
+        const tracks = stream.getTracks();
+        tracks.forEach(function (track) {
+            track.stop();
+        });
+        previewV1.srcObject = null;
+        window.stream = null;
+        cameraBtn.disabled = false;
+        cameraBtn.setAttribute('state', 'off');
+        cameraBtn.innerHTML = '开启摄像头';
+    }
 });
 
 async function init(constraints) {
@@ -66,28 +81,12 @@ async function init(constraints) {
 }
 
 function gotStream(streamCamera, streamScreen) {
-    recordBtn.disabled = false;
     //showMsg('拿到了 stream:', stream);
     window.stream = streamCamera;
     window.stream = streamScreen;
     previewV1.srcObject = streamCamera;
     //previewV1.srcObject = streamScreen;
 }
-
-stopCameraBtn.addEventListener('click', () => {
-    var stream = previewV1.srcObject;
-    if (stream == null) {
-        return;
-    }
-    const tracks = stream.getTracks();
-    tracks.forEach(function (track) {
-        track.stop();
-    });
-    previewV1.srcObject = null;
-    window.stream = null;
-    startCameraBtn.disabled = false;
-});
-
 
 function startRecording() {
     recordedBlobsCamera = [];
@@ -109,7 +108,6 @@ function startRecording() {
     }
 
     //showMsg('创建MediaRecorder', mediaRecorderCamera, ' -> options', options);
-    recordBtn.textContent = '停止录制';
     isRecording = true;
     mediaRecorderCamera.onstop = (event) => {
         //showMsg('录制停止了: ' + event);
@@ -148,15 +146,6 @@ function handleDataAvailable2(event) {
         socketScreen.send(event.data);
     }
 }
-
-recordBtn.addEventListener('click', () => {
-    if (isRecording == false) {
-        startRecording();
-    } else {
-        stopRecording();
-        recordBtn.textContent = '开始录制';
-    }
-});
 
 window.onunload = function () {
     socketCamera.close();

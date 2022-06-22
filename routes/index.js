@@ -21,14 +21,20 @@ module.exports = (db_pool) => {
                     res.send({ 'mC': "会议号不存在", 'mE': 'Room not found' });
                 else if (passwd == rows[0]['passwd']) {
                     res.send({ 'mC': '成功', 'mE': 'Success' });
-
-                    // still need to reconnection first...
-
-                    db_pool.query(
-                        `insert into \`login\`(\`room_id\`, \`session_id\`, \`user_name\`) \
-                            values('${roomid}', '${req.sessionID}', '${username}')`,
-                        (err) => { if (err) throw (err); }
-                    )
+                    db_pool.query(`select * from \`login\` \
+                        where \`room_id\` = '${roomid}' and \`user_name\` = '${username}'`,
+                        (err, rows) => {
+                            if (err) throw err;
+                            if (rows.length == 0)
+                                db_pool.query(
+                                    `insert into \`login\`(\`room_id\`, \`session_id\`, \`user_name\`) \
+                                    values('${roomid}', '${req.sessionID}', '${username}')`,
+                                    (err) => {
+                                        if (err) throw (err);
+                                    }); else {
+                                ; // login again, maybe update something
+                            }
+                        });
                 } else res.send({ 'mC': '密码错误', 'mE': 'Wrong password' });
             });
     });

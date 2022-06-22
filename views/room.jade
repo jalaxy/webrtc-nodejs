@@ -6,14 +6,31 @@ html
   body(style="padding: 0 0")
     center
       h1 会议室
-    div(align="center")
-      div#main-video-container
-        video#main-video(playsinline, autoplay, muted, height="100%", width="100%")
-    div(style="margin-left: 5%")
-      div#sub-video-container
-        video#sub-video(playsinline, autoplay, muted, height="100%", width="100%")
-    div
-      button#startCamera 开启摄像头
-      button#stopCamera 停止摄像头
-      button#record(disabled) 录制
+    div#videos
+      div#main-video
+        div.video-container
+          video.video(playsinline, autoplay, muted)
+      div#multi-video
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+        div.sub-video
+          div.video-container
+            video.video(playsinline, autoplay, muted)
+    button#camera-button(state="off") 开启摄像头
     script(src="/javascripts/room.js")
