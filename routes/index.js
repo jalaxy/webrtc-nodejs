@@ -40,7 +40,16 @@ module.exports = (db_pool) => {
     });
 
     router.get('/room/:roomid', function (req, res, next) {
-        res.render('room');
+        db_pool.query(
+            `select count(*) as cnt from \`login\` where \`room_id\` = '${req.params.roomid}' \
+            and \`session_id\` = '${req.sessionID}'`,
+            (err, rows) => {
+                if (err) throw err;
+                if (rows[0]['cnt'] == 0)
+                    res.redirect('/');
+                else
+                    res.render('room');
+            });
     });
 
     return router;

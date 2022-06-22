@@ -12,7 +12,7 @@
     "express-mysql-session": "^2.1.8",
     "express-session": "^1.17.3",
     "http-errors": "~1.6.3",
-    "jade": "^1.9.2",
+    "jade": "^0.31.2",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "ws": "^8.6.0"

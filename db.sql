@@ -66,5 +66,5 @@ begin
 end-;
 delimiter ;
 
-insert into `room`(`passwd`) values('a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
+insert into `room`(`passwd`) values(sha2('123', 256));
 update `room` set `room_id` = 'test';

@@ -10,7 +10,7 @@ let isRecording = false;
 // 先把页面元素拿到
 const cameraBtn = document.querySelector('button#camera-button'); // 启动摄像头按钮
 
-const previewV1 = document.querySelector('video#main-video'); // 预览用的
+const previewV1 = document.querySelector('#v1'); // 预览用的
 const previewV2 = document.querySelector('video#sub-video'); // 预览用的
 
 var streamCamera;
