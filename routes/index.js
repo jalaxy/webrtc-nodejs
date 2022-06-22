@@ -1,6 +1,18 @@
+'use strict';
+
 module.exports = (db_pool) => {
     var express = require('express');
     var router = express.Router();
+    var config = require('../config');
+
+    router.get('/getconfig', (req, res, next) => { res.send(config()); });
+
+    router.get('/getsid', (req, res, next) => { res.send({ 'sid': req.sessionID }); })
+
+    router.post('/logout', (req, res, next) => {
+        req.session.destroy();
+        res.send({});
+    });
 
     /* GET home page. */
     router.get('/', function (req, res, next) {
@@ -22,7 +34,7 @@ module.exports = (db_pool) => {
                 else if (passwd == rows[0]['passwd']) {
                     res.send({ 'mC': '成功', 'mE': 'Success' });
                     db_pool.query(`select * from \`login\` \
-                        where \`room_id\` = '${roomid}' and \`user_name\` = '${username}'`,
+                        where \`room_id\` = '${roomid}' and \`session_id\` = '${req.sessionID}'`,
                         (err, rows) => {
                             if (err) throw err;
                             if (rows.length == 0)

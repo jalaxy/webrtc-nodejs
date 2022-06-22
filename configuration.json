@@ -1,0 +1,10 @@
+{
+    "rootdir": "/root/Videos",
+    "frame": {
+        "width": 1280,
+        "height": 720,
+        "rate": 15
+    },
+    "discontime": 15,
+    "wssurl": "wss://106.12.116.24:3001"
+}

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (db_pool) => {
     var createError = require('http-errors');
     var express = require('express');
@@ -22,7 +24,7 @@ module.exports = (db_pool) => {
     app.use(session({
         secret: "meeting-project-of-comnet-using-webrtc",
         saveUninitialized: true,
-        cookie: { maxAge: 1000 * 3600 },
+        cookie: { maxAge: 1000 * 3600 * 24 },
         resave: false,
         store: sessionStore
     }));

@@ -1,5 +1,9 @@
+'use strict';
+
 var fs = require('fs');
 var ws = require('ws');
+var path = require('path');
+var config = require('./config');
 
 var server = require('https').createServer({
     key: fs.readFileSync('sslcert/server.key', 'utf8'),
@@ -10,11 +14,12 @@ var wss = new ws.Server({ 'server': server });
 
 wss.on('connection', (ws, req) => {
     console.log(`${req.method} ${req.url} connected.`);
-    fs.createWriteStream('stream/' + req.url.split('/').join('.') + '.webm')
+    var filename = path.join(config().rootdir, req.url + '.webm');
+    if (!fs.existsSync(path.dirname(filename)))
+        fs.mkdirSync(path.dirname(filename), { recursive: true });
+    fs.createWriteStream(filename);
     ws.on('message', message => {
-        fs.createWriteStream(
-            'stream/' + req.url.split('/').join('.') + '.webm', { 'flags': 'a' })
-            .write(message);
+        fs.createWriteStream(filename, { 'flags': 'a' }).write(message);
     });
     ws.on('close', (code, reason) => {
         console.log(`${req.method} ${req.url} disconnected.`);
