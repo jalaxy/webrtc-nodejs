@@ -21,7 +21,7 @@ const db_pool = mysql.createPool({
  */
 
 var app = require('../app')(db_pool);
-var wsserver = require('../wss')
+var wsserver = require('../wss')(db_pool);
 var debug = require('debug')('nodejs:server');
 var https = require('https');
 var fs = require('fs');

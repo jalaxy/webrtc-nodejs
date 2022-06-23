@@ -34,7 +34,7 @@ create table `login` (
     constraint fk_login_room
         foreign key (`room_id`) references `room`(`room_id`)
         on delete cascade on update cascade,
-    constraint fk_login_session
+    constraint fk_login_sessions
         foreign key (`session_id`) references `sessions`(`session_id`)
         on delete cascade on update cascade
 );

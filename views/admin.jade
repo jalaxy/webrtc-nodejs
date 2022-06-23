@@ -14,18 +14,16 @@ html
           td
             状态
           td
+            视频
+        { for user in users }
+        tr
+          td
+            user_name
+          td
+            user.status
+          td
             a(href="")
               视频 
     
-    div#videos
-      div#main-video
-        div.video-container
-          video.video(playsinline, autoplay, muted)#v2
-      div#multi-video
-        div.sub-video
-          div.video-container
-            video.video(playsinline, autoplay, muted)#v1
-    button#camera-button(state="off") 开启摄像头
-    button#screen-button(state="off") 共享屏幕
     button#logout-button 退出
     script(src="/javascripts/room.js")
